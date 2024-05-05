@@ -31,6 +31,11 @@ float AItem::TransformedCos()
 	return Amplitude * FMath::Cos(RunningTime * TimeConstant);
 }
 
+float AItem::ItemRotation(float DeltaTime)
+{
+	return (DeltaTime * RotationRate);
+}
+
 // Called every frame
 void AItem::Tick(float DeltaTime)
 {

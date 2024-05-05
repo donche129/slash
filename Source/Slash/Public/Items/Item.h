@@ -26,6 +26,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sine Parameters")
 	float TimeConstant = 5.f;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Rotation")
+	float RotationRate = 50.f;
+
 	UFUNCTION(BlueprintPure)
 	float TransformedSin();
 
@@ -34,6 +37,9 @@ protected:
 
 	template<typename T>
 	T Avg(T First, T Second);
+
+	UFUNCTION(BlueprintPure)
+	float ItemRotation(float DeltaTime);
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
