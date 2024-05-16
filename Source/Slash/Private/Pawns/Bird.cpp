@@ -55,6 +55,16 @@ void ABird::MoveForward(float Value)
 	}
 }
 
+void ABird::Turn(float Value)
+{
+	AddControllerYawInput(Value);
+}
+
+void ABird::LookUp(float Value)
+{
+	AddControllerPitchInput(Value);
+}
+
 void ABird::Move(const FInputActionValue& Value)
 {
 	const float DirectionValue = Value.Get<float>();
@@ -84,5 +94,7 @@ void ABird::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	// Old input system
 	//PlayerInputComponent->BindAxis(FName("MoveForward"), this, &ABird::MoveForward);
+	PlayerInputComponent->BindAxis(FName("Turn"), this, &ABird::Turn);
+	PlayerInputComponent->BindAxis(FName("LookUp"), this, &ABird::LookUp);
 }
 
