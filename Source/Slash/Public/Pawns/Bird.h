@@ -28,6 +28,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
 	void MoveForward(float Value);
 	// Old input system
 	//void Turn(float Value);

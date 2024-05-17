@@ -46,16 +46,16 @@ void ABird::BeginPlay()
 	}
 }
 
-void ABird::MoveForward(float Value)
-{
-	if (Controller && (Value != 0.f))
-	{
-		FVector Forward = GetActorForwardVector();
-		AddMovementInput(Forward, Value);
-	}
-}
-
 // Old input system
+//void ABird::MoveForward(float Value)
+//{
+//	if (Controller && (Value != 0.f))
+//	{
+//		FVector Forward = GetActorForwardVector();
+//		AddMovementInput(Forward, Value);
+//	}
+//}
+//
 //void ABird::Turn(float Value)
 //{
 //	AddControllerYawInput(Value);
