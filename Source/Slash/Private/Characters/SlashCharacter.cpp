@@ -144,6 +144,11 @@ void ASlashCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 void ASlashCharacter::Jump()
 {
-	Super::Jump();
+	if (bCanJump) // add && IsUnoccupied() once we have that function
+	{
+		Super::Jump();
+		bCanJump = false;
+	}
+	
 }
 

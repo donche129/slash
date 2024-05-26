@@ -63,6 +63,12 @@ protected:
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 
+	UPROPERTY(BlueprintReadOnly)
+	bool bCanJump = true;
+
+	UFUNCTION(BlueprintCallable)
+	void SetCanJump(bool bCan) { bCanJump = bCan; }
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	USpringArmComponent* SpringArm;
