@@ -9,6 +9,8 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GroomComponent.h"
+#include "Items/Item.h"
+#include "Items/Weapons/Weapon.h"
 
 // Sets default values
 ASlashCharacter::ASlashCharacter()
@@ -89,6 +91,15 @@ void ASlashCharacter::LookUp(float Value)
 	AddControllerPitchInput(Value);
 }
 
+void ASlashCharacter::EKeyPressed()
+{
+	AWeapon* OverlappingWeapon = Cast<AWeapon>(OverlappingItem);
+	if (OverlappingWeapon)
+	{
+		OverlappingWeapon->Equip(GetMesh(), FName("RightHandSocket"));
+	}
+}
+
 void ASlashCharacter::Move(const FInputActionValue& Value)
 {
 	// future check to prevent moving
@@ -129,7 +140,7 @@ void ASlashCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		EnhancedInputComponent->BindAction(MovementAction, ETriggerEvent::Triggered, this, &ASlashCharacter::Move);
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ASlashCharacter::Look);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ASlashCharacter::Jump);
-		//EnhancedInputComponent->BindAction(EKeyAction, ETriggerEvent::Triggered, this, &ASlashCharacter::EKeyPressed);
+		EnhancedInputComponent->BindAction(EKeyAction, ETriggerEvent::Triggered, this, &ASlashCharacter::EKeyPressed);
 		//EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Triggered, this, &ASlashCharacter::Attack);
 		//EnhancedInputComponent->BindAction(DodgeAction, ETriggerEvent::Triggered, this, &ASlashCharacter::Dodge);
 	}
@@ -139,7 +150,8 @@ void ASlashCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	PlayerInputComponent->BindAxis(FName("MoveRight"), this, &ASlashCharacter::MoveRight);
 	PlayerInputComponent->BindAxis(FName("Turn"), this, &ASlashCharacter::Turn);
 	PlayerInputComponent->BindAxis(FName("LookUp"), this, &ASlashCharacter::LookUp);
-	PlayerInputComponent->BindAction(FName("Jump"), IE_Pressed, this, &ACharacter::Jump);*/
+	PlayerInputComponent->BindAction(FName("Jump"), IE_Pressed, this, &ACharacter::Jump);
+	PlayerInputComponent->BindAction(FName("Equip"), IE_Pressed, this, &ASlashCharacter::EKeyPressed);*/
 }
 
 void ASlashCharacter::Jump()

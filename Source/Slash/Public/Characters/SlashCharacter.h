@@ -12,6 +12,7 @@ class UInputAction;
 class USpringArmComponent;
 class UCameraComponent;
 class UGroomComponent;
+class AItem;
 
 UCLASS()
 class SLASH_API ASlashCharacter : public ACharacter
@@ -34,10 +35,12 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	// Old input system
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 	void Turn(float Value);
 	void LookUp(float Value);
+	void EKeyPressed();
 
 	UPROPERTY(EditAnywhere, Category = Input)
 	UInputMappingContext* SlashContext;
@@ -81,4 +84,10 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = Hair)
 	UGroomComponent* Eyebrows;
+
+	UPROPERTY(VisibleInstanceOnly)
+	AItem* OverlappingItem;
+
+public:
+	FORCEINLINE void SetOverlappingItem(AItem* Item) { OverlappingItem = Item; }
 };
