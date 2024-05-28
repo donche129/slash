@@ -38,6 +38,9 @@ protected:
 	virtual void BeginPlay() override;
 
 	// Old input system
+	/**
+	* Callbacks for input
+	*/
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 	void Turn(float Value);
@@ -75,8 +78,14 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void SetCanJump(bool bCan) { bCanJump = bCan; }
 
+	/**
+	* Play montage functions
+	*/
+	void PlayAttackMontage();
+
 private:
 	ECharacterState CharacterState = ECharacterState::ECS_Unequipped;
+	EActionState ActionState = EActionState::EAS_Unoccupied;
 
 	UPROPERTY(VisibleAnywhere)
 	USpringArmComponent* SpringArm;
@@ -94,7 +103,7 @@ private:
 	AItem* OverlappingItem;
 
 	/** 
-	* Animation Montages
+	* Animation montages
 	*/
 
 	UPROPERTY(EditDefaultsOnly, Category = Montages)

@@ -104,24 +104,10 @@ void ASlashCharacter::EKeyPressed()
 
 void ASlashCharacter::Attack()
 {
-	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	if (AnimInstance && AttackMontage)
+	if (ActionState == EActionState::EAS_Unoccupied)
 	{
-		AnimInstance->Montage_Play(AttackMontage);
-		int32 Selection = FMath::RandRange(0, 1);
-		FName SectionName = FName();
-		switch (Selection)
-		{
-		case 0:
-			SectionName = FName("Attack1");
-			break;
-		case 1:
-			SectionName = FName("Attack2");
-			break;
-		default:
-			break;
-		}
-		AnimInstance->Montage_JumpToSection(SectionName, AttackMontage);
+		ActionState = EActionState::EAS_Attacking;
+		PlayAttackMontage();
 	}
 }
 
@@ -146,6 +132,29 @@ void ASlashCharacter::Look(const FInputActionValue& Value)
 
 	AddControllerPitchInput(LookAxisVector.Y);
 	AddControllerYawInput(LookAxisVector.X);
+}
+
+void ASlashCharacter::PlayAttackMontage()
+{
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance && AttackMontage)
+	{
+		AnimInstance->Montage_Play(AttackMontage);
+		const int32 Selection = FMath::RandRange(0, 1);
+		FName SectionName = FName();
+		switch (Selection)
+		{
+		case 0:
+			SectionName = FName("Attack1");
+			break;
+		case 1:
+			SectionName = FName("Attack2");
+			break;
+		default:
+			break;
+		}
+		AnimInstance->Montage_JumpToSection(SectionName, AttackMontage);
+	}
 }
 
 // Called every frame
