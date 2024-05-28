@@ -160,7 +160,7 @@ void ASlashCharacter::Jump()
 	if (bCanJump) // add && IsUnoccupied() once we have that function
 	{
 		Super::Jump();
-		//bCanJump = false;
+		bCanJump = false;
 	}
 	
 }
