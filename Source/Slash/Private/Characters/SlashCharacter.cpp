@@ -58,6 +58,7 @@ void ASlashCharacter::BeginPlay()
 
 void ASlashCharacter::MoveForward(float Value)
 {
+	if (ActionState != EActionState::EAS_Unoccupied) return;
 	if (Controller && (Value != 0.f))
 	{
 		// find out which way is forward
@@ -71,6 +72,7 @@ void ASlashCharacter::MoveForward(float Value)
 
 void ASlashCharacter::MoveRight(float Value)
 {
+	if (ActionState != EActionState::EAS_Unoccupied) return;
 	if (Controller && (Value != 0.f))
 	{
 		// find out which way is right
@@ -201,7 +203,7 @@ void ASlashCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 void ASlashCharacter::Jump()
 {
-	if (bCanJump) // add && IsUnoccupied() once we have that function
+	if (bCanJump && ActionState == EActionState::EAS_Unoccupied)
 	{
 		Super::Jump();
 		bCanJump = false;
