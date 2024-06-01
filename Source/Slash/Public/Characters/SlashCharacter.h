@@ -34,6 +34,9 @@ public:
 
 	virtual void Jump() override;
 
+	UFUNCTION(BlueprintCallable)
+	void SetWeaponCollisionEnabled(ECollisionEnabled::Type CollisionEnabled);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
