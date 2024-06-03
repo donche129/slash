@@ -89,7 +89,7 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 		ETraceTypeQuery::TraceTypeQuery1,
 		false,
 		ActorsToIgnore,
-		EDrawDebugTrace::None, //Use ForDuration to see trace
+		EDrawDebugTrace::None, //Use EDrawDebugTrace::ForDuration to see trace
 		BoxHit,
 		true
 	);
@@ -101,5 +101,7 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 			HitInterface->GetHit(BoxHit.ImpactPoint);
 		}
 		IgnoreActors.AddUnique(BoxHit.GetActor());
+
+		CreateFields(BoxHit.ImpactPoint);
 	}
 }
