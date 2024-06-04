@@ -89,17 +89,25 @@ void AWeapon::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 		ETraceTypeQuery::TraceTypeQuery1,
 		false,
 		ActorsToIgnore,
-		EDrawDebugTrace::None, //Use EDrawDebugTrace::ForDuration to see trace
+		EDrawDebugTrace::None, // Use EDrawDebugTrace::ForDuration instead to see trace
 		BoxHit,
 		true
 	);
 	if (BoxHit.GetActor())
 	{
+		// Method in lecture calling through the object
 		IHitInterface* HitInterface = Cast<IHitInterface>(BoxHit.GetActor());
 		if (HitInterface)
 		{
 			HitInterface->Execute_GetHit(BoxHit.GetActor(), BoxHit.ImpactPoint);
 		}
+
+		// Proper method since  this is a static member function
+		/*if (BoxHit.GetActor()->Implements<IHitInterface>())
+		{
+			IHitInterface::Execute_GetHit(BoxHit.GetActor(), BoxHit.ImpactPoint);
+		}*/
+
 		IgnoreActors.AddUnique(BoxHit.GetActor());
 
 		CreateFields(BoxHit.ImpactPoint);
