@@ -57,6 +57,9 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	USphereComponent* SphereComponent;
 
+	UPROPERTY(VisibleAnywhere)
+	class UNiagaraComponent* EmbersEffect;
+
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	float RunningTime;
