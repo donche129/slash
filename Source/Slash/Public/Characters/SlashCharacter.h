@@ -64,6 +64,9 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void FinishEquipping();
 
+	UFUNCTION(BlueprintCallable)
+	void HitReactEnd();
+
 	/** New input system*/
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
