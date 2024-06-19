@@ -77,9 +77,19 @@ void ASlashCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	PlayerInputComponent->BindAction(FName("Attack"), IE_Pressed, this, &ASlashCharacter::Attack);
 }
 
+void ASlashCharacter::Jump()
+{
+	if (bCanJump && IsUnoccupied())
+	{
+		Super::Jump();
+		bCanJump = false;
+	}
+}
+
 float ASlashCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
 	HandleDamage(DamageAmount);
+	SetHUDHealth();
 	return DamageAmount;
 }
 
@@ -258,6 +268,11 @@ void ASlashCharacter::HitReactEnd()
 	ActionState = EActionState::EAS_Unoccupied;
 }
 
+bool ASlashCharacter::IsUnoccupied()
+{
+	return ActionState == EActionState::EAS_Unoccupied;
+}
+
 void ASlashCharacter::InitializeSlashOverlay()
 {
 	APlayerController* PlayerController = Cast<APlayerController>(GetController());
@@ -275,6 +290,14 @@ void ASlashCharacter::InitializeSlashOverlay()
 				SlashOverlay->SetSouls(0);
 			}
 		}
+	}
+}
+
+void ASlashCharacter::SetHUDHealth()
+{
+	if (SlashOverlay && Attributes)
+	{
+		SlashOverlay->SetHealthBarPercent(Attributes->GetHealthPercent());
 	}
 }
 
@@ -298,13 +321,4 @@ void ASlashCharacter::Look(const FInputActionValue& Value)
 
 	AddControllerPitchInput(LookAxisVector.Y);
 	AddControllerYawInput(LookAxisVector.X);
-}
-
-void ASlashCharacter::Jump()
-{
-	if (bCanJump && ActionState == EActionState::EAS_Unoccupied)
-	{
-		Super::Jump();
-		bCanJump = false;
-	}
 }
