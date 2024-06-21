@@ -28,6 +28,7 @@ class SLASH_API ASlashCharacter : public ABaseCharacter, public IPickupInterface
 public:
 	// Sets default values for this character's properties
 	ASlashCharacter();
+	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -63,6 +64,8 @@ protected:
 	void Arm();
 	void PlayEquipMontage(const FName& SectionName);
 	virtual void Die() override;
+	bool HasEnoughStamina();
+	bool IsOccupied();
 
 	UFUNCTION(BlueprintCallable)
 	void AttachWeaponToBack();
